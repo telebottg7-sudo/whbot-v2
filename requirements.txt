@@ -1,0 +1,8 @@
+pyrogram>=2.0,<3
+tgcrypto>=1.2,<2
+python-dotenv>=1.0,<2
+requests>=2.31,<3
+Pillow>=10,<12
+requests-toolbelt>=1.0,<2
+beautifulsoup4>=4.12,<5
+aiofiles>=23.0,<25
