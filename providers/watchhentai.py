@@ -137,9 +137,17 @@ class WatchHentai:
     def _episode_links(self, html: str) -> list[dict[str, str]]:
         seen: set[str] = set()
         out: list[dict[str, str]] = []
+        skip = {"feed", "page", "random", "latest", "popular", "trending"}
         for m in re.finditer(r'href=["\']([^"\']*/videos/[^"\']+)["\']', html, re.I):
             url = self._absolute(m.group(1)).split("#")[0].rstrip("/")
-            if url == self.base + "/videos" or url in seen:
+            slug = url.rstrip("/").rsplit("/", 1)[-1].lower()
+            if (
+                url == self.base + "/videos"
+                or url in seen
+                or slug in skip
+                or slug.isdigit()
+                or not slug
+            ):
                 continue
             seen.add(url)
             out.append({"provider": "watchhentai", "page_url": url})
